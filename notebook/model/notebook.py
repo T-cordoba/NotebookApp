@@ -2,20 +2,21 @@ import dataclasses
 import random
 from dataclasses import dataclass
 from datetime import datetime
+from typing import ClassVar
 
 
 @dataclass
 class Note:
-    HIGH = "HIGH"
-    MEDIUM = "MEDIUM"
-    LOW = "LOW"
+    HIGH: ClassVar[str] = "HIGH"
+    MEDIUM: ClassVar[str] = "MEDIUM"
+    LOW: ClassVar[str] = "LOW"
     code: int
     title: str
     text: str
     importance: str
-    creation_time: datetime = dataclasses.field(default_factory=datetime.now)
-    creation_date: datetime = dataclasses.field(default_factory=datetime.now)
-    tags: list = dataclasses.field(default_factory=list)
+    creation_time: datetime = dataclasses.field(init=False, default_factory=datetime.now)
+    creation_date: datetime = dataclasses.field(init=False, default_factory=datetime.now)
+    tags: list[str] = dataclasses.field(default_factory=list)
 
     def __str__(self):
         return f"Code: {self.code} \nCreation date: {self.creation_time} \n{self.title}: {self.text}"
